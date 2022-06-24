@@ -174,3 +174,71 @@ GROUP BY sex;
 SELECT SUM(total_sales), emp_id
 FROM works_with
 GROUP BY emp_id;
+
+-- Find the names of the employees who sold over 30000 to a single client
+SELECT employee.first_name, employee.last_name
+FROM employee
+WHERE employee.emp_id IN (
+    SELECT works_with.emp_id
+    FROM works_with
+    WHERE works_with.total_sales > 30000
+);
+
+-- Find all clients who are handled by the branch that Michael Scott manages (emp_id = 102)
+SELECT client.client_name
+FROM client
+WHERE client.branch_id = (
+    SELECT branch.branch_id
+    FROM branch
+    WHERE branch.manager_id=102
+);
+
+CREATE TABLE trigger_test(
+    message VARCHAR(100)
+);
+
+DELIMITER $$ -- Changes the delimiter from ; to $$ (can only be sued in shell)
+CREATE TRIGGER
+    my_trigger1 BEFORE INSERT
+    ON employee
+    FOR EACH ROW BEGIN 
+        INSERT INTO trigger_test VALUES('added new employee');
+    END $$
+DELIMITER ; -- Changes back the delimiter from $$ to ; (can only be used in shell)
+
+INSERT INTO employee VALUES(109, 'Oscar', 'Martinez', '1968-02-19', 'M', 69000, 106, 3);
+
+SELECT * FROM trigger_test;
+
+DELIMITER $$ -- Changes the delimiter from ; to $$ (can only be sued in shell)
+CREATE TRIGGER
+    my_trigger2 BEFORE INSERT
+    ON employee
+    FOR EACH ROW BEGIN 
+        INSERT INTO trigger_test VALUES(NEW.first_name);
+    END $$
+DELIMITER ; -- Changes back the delimiter from $$ to ; (can only be used in shell)
+
+INSERT INTO employee VALUES(110, 'Kelvin', 'Malone', '1978-02-19', 'M', 66000, 106, 3);
+
+DELIMITER $$ -- Changes the delimiter from ; to $$ (can only be sued in shell)
+CREATE TRIGGER
+    my_trigger3 BEFORE INSERT
+    ON employee
+    FOR EACH ROW BEGIN 
+        IF NEW.sex = 'M' THEN
+            INSERT INTO trigger_test VALUES('Added male employee');
+        ELSEIF NEW.sex = 'F' THEN
+            INSERT INTO trigger_test VALUES('Added female employee');
+        ELSE
+            INSERT INTO trigger_test VALUES('Added other employee');
+        END IF;
+    END $$
+DELIMITER ; -- Changes back the delimiter from $$ to ; (can only be used in shell)
+
+INSERT INTO employee VALUES(112, 'Pam', 'Beesly', '1988-05-29', 'F', 82000, 106, 3);
+
+DROP TRIGGER my_trigger1
+DROP TRIGGER my_trigger2
+DROP TRIGGER my_trigger3
+
