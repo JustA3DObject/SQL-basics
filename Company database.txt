@@ -1,3 +1,5 @@
+-- Creating Employee's table
+
 CREATE TABLE employee (
     emp_id INT PRIMARY KEY,
     first_name VARCHAR(40),
@@ -8,6 +10,9 @@ CREATE TABLE employee (
     supervisor_id INT,
     branch_id INT
 );
+
+
+-- Creating Branch table
 
 CREATE TABLE branch (
     branch_id INT PRIMARY KEY,
@@ -23,12 +28,18 @@ ADD FOREIGN KEY(branch_id) REFERENCES branch(branch_id) ON DELETE SET NULL;
 ALTER TABLE employee
 ADD FOREIGN KEY(supervisor_id) REFERENCES employee(emp_id) ON DELETE SET NULL;
 
+
+-- Creating client table
+
 CREATE TABLE client (
     client_id INT PRIMARY KEY,
     client_name VARCHAR(40), 
     branch_id INT,
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id) ON DELETE SET NULL
 );
+
+
+-- Creating works with table
 
 CREATE TABLE works_with(
     emp_id INT,
@@ -39,6 +50,9 @@ CREATE TABLE works_with(
     FOREIGN KEY (client_id) REFERENCES client(client_id) ON DELETE CASCADE
 );
 
+
+-- Creating branch supplier table
+
 CREATE TABLE branch_supplier (
     branch_id INT,
     supplier_name VARCHAR(40),
@@ -46,6 +60,9 @@ CREATE TABLE branch_supplier (
     PRIMARY KEY(branch_id, supplier_name),
     FOREIGN KEY (branch_id) REFERENCES branch(branch_id) ON DELETE CASCADE
 );
+
+
+-- Populating tables
 
 -- Coorporate branch
 INSERT INTO employee VALUES(100, 'David', 'Wallace', '1967-11-17', 'M', 250000, NULL, NULL);
@@ -112,6 +129,9 @@ INSERT INTO works_with VALUES(107, 405, 26000);
 INSERT INTO works_with VALUES(102, 406, 15000);
 INSERT INTO works_with VALUES(105, 406, 130000);
 
+
+-- Calling basic queries
+
 -- Find all employees
 SELECT *
 FROM employee;
@@ -147,6 +167,9 @@ FROM employee;
 SELECT DISTINCT sex 
 FROM employee;
 
+
+-- SQL Functions
+
 -- Find the number of employees
 SELECT COUNT(emp_id)
 FROM employee;
@@ -175,6 +198,76 @@ SELECT SUM(total_sales), emp_id
 FROM works_with
 GROUP BY emp_id;
 
+
+-- Wildcards
+
+-- % = any number of characters, _ = one character
+-- Find any clients who are LLC
+SELECT *
+FROM client
+WHERE client_name LIKE '%LLC';
+
+-- Find any branch suppliers who are in label business
+SELECT *
+FROM branch_supplier
+WHERE supplier_name LIKE '%Label%';
+
+-- Find any employee born in feb
+SELECT *
+FROM employee
+WHERE birth_day LIKE '____-02%';
+
+-- Find any clients who are schools
+SELECT *
+FROM client
+WHERE client_name LIKE '%school%'
+
+
+-- Union
+
+-- Find a list of employee and branch names
+SELECT first_name
+FROM employee
+UNION 
+SELECT branch_name
+FROM branch;
+
+-- Find the list of all the money spent or earned by the company
+SELECT salary AS money
+FROM employee
+UNION
+SELECT total_sales
+FROM works_with;
+
+
+-- Join
+
+INSERT INTO branch VALUES(4, 'Psudo', NULL, NULL);
+
+SELECT *
+FROM branch;
+
+-- Find all branches and names of their managers
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee
+JOIN branch
+ON employee.emp_id = branch.manager_id;
+
+-- Left join (All rows from left table will get included and only matched rows from right will be included)
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee
+LEFT JOIN branch
+ON employee.emp_id = branch.manager_id;
+
+-- Right join (All rows from right table will get included and only matched rows from left will be included)
+SELECT employee.emp_id, employee.first_name, branch.branch_name
+FROM employee
+RIGHT JOIN branch
+ON employee.emp_id = branch.manager_id;
+
+
+-- Nested queries
+
 -- Find the names of the employees who sold over 30000 to a single client
 SELECT employee.first_name, employee.last_name
 FROM employee
@@ -192,6 +285,9 @@ WHERE client.branch_id = (
     FROM branch
     WHERE branch.manager_id=102
 );
+
+
+-- Triggers
 
 CREATE TABLE trigger_test(
     message VARCHAR(100)
@@ -241,4 +337,3 @@ INSERT INTO employee VALUES(112, 'Pam', 'Beesly', '1988-05-29', 'F', 82000, 106,
 DROP TRIGGER my_trigger1
 DROP TRIGGER my_trigger2
 DROP TRIGGER my_trigger3
-
