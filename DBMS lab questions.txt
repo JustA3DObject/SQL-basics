@@ -25,3 +25,9 @@ where e.salary < (select max(e.salary)
 
 
 -- Ranking by salary 
+select e.salary, 
+	(select count(distinct salary) 
+	from employee e2 
+	where e2.salary>=e.salary) as 'Rank'
+from employee e 
+order by e.salary desc;
