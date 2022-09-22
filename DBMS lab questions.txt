@@ -1,0 +1,27 @@
+-- Combine Two Tables
+select e.emp_id, e.first_name, e.last_name, b.branch_id, b.branch_name 
+from employee e 
+left join branch b 
+on e.branch_id = b.branch_id ;  
+
+
+-- Second Highest Salary
+select max(e.salary)
+from employee e 
+where e.salary < (select max(e.salary) 
+				from employee e2);
+
+
+-- Third Highest Salary 
+select max(e.salary)
+from employee e 
+where e.salary < (select max(e.salary) 
+				from employee e 
+				where e.salary < (select max(e.salary) 
+								from employee e));
+
+
+-- Nth Highest Salary 
+
+
+-- Ranking by salary 
