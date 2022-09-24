@@ -9,7 +9,7 @@ The DBMS directory contains notes from several colleges for studying the theory 
 
 ## SQL
 
-The SQL directory contains txt files that hold SQL commands for creating a database and performing several queries on the database along with ER diagrams for all tables to better understand the structure of the database. It also contains some popular SQL questions that can be asked in coding rounds as well as college exams.
+The SQL directory contains txt files that hold SQL commands for creating a database and performing several queries on the database along with ER diagrams for all tables to better understand the structure of the database. It also contains some popular SQL questions that can be useful in coding rounds as well as college exams.
 
 ## Tools recommended
 
