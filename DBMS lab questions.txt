@@ -102,3 +102,13 @@ where 3> (select count(distinct e2.salary)
     	where e2.salary > e.salary
     	and e.branch_id = e2.branch_id 
 );
+
+
+-- Delete duplicate emails
+delete e2
+from emails e
+join emails e2
+on e.email = e2.email
+and e.id < e2.id
+
+select * from emails
