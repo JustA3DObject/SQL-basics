@@ -31,3 +31,24 @@ select e.salary,
 	where e2.salary>=e.salary) as 'Rank'
 from employee e 
 order by e.salary desc;
+
+
+-- Find numbers that appear at least three times consecutively
+create table consecutive_nums (
+	id int primary key,
+	value varchar(3)
+);
+
+insert into consecutive_nums values (1, 1);
+insert into consecutive_nums values (2, 1);
+insert into consecutive_nums values (3, 1);
+insert into consecutive_nums values (4, 2);
+insert into consecutive_nums values (5, 3);
+insert into consecutive_nums values (6, 4);
+
+select c.value as repeating_nums
+from consecutive_nums c
+join consecutive_nums c2 
+on c.id = c2.id+1 and c.value = c2.value
+join consecutive_nums c3
+on c.id = c3.id+2 and c.value = c3.value;
