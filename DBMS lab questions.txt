@@ -90,3 +90,15 @@ in (select e2.branch_id, max(e2.salary)
 	from employee e2
 	group by e2.branch_id
 );
+
+
+-- Top three salaries of each department
+select b.branch_name as branch, e.first_name as employee, e.salary 
+from employee e 
+join branch b
+on e.branch_id = b.branch_id
+where 3> (select count(distinct e2.salary)
+		from employee e2
+    	where e2.salary > e.salary
+    	and e.branch_id = e2.branch_id 
+);
