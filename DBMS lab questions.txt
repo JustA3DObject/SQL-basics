@@ -79,3 +79,14 @@ from emails
 group by email
 having count(email)>1;
 
+
+-- Highest salary of each department
+select b.branch_name as branch, e.first_name as employee, e.salary 
+from employee e 
+join branch b
+on e.branch_id = b.branch_id
+where (e.branch_id, e.salary) 
+in (select e2.branch_id, max(e2.salary)
+	from employee e2
+	group by e2.branch_id
+);
