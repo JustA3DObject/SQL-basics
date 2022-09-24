@@ -59,3 +59,23 @@ select e.first_name as employee
 from employee e 
 join employee e2 
 on e.supervisor_id = e2.emp_id and e.salary > e2.salary;
+
+
+-- Duplicate emails 
+create table emails(
+	id int primary key,
+	email varchar(40)
+);
+
+insert into emails values (1, 'abc@mail.com');
+insert into emails values (2, 'def@mail.com');
+insert into emails values (3, 'abc@mail.com');
+insert into emails values (4, 'abc@mail.com');
+insert into emails values (5, 'def@mail.com');
+insert into emails values (6, 'ghi@mail.com');
+
+select email as Duplicate_emails
+from emails
+group by email
+having count(email)>1;
+
