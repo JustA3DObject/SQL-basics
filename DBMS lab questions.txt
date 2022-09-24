@@ -21,7 +21,11 @@ where e.salary < (select max(e.salary)
 								from employee e));
 
 
--- Nth Highest Salary 
+-- Nth Highest Salary 						
+select e.salary
+from employee e 
+order by salary desc
+limit n-1, 1; -- replace n with the desired number or make a function to prompt user for value of n
 
 
 -- Ranking by salary 
