@@ -2,12 +2,6 @@
 
 This repository contains notes and other help material for Database Management System (DBMS) along with txt files containing SQL commands to create a database like a company would have along with other queries to get started with SQL. <br>
 **The SQL written works best with MySQL.**
-<<<<<<< HEAD
-
-=======
-
-> > > > > > > 0a8756f16926b488b0fe01cde11c037566d2773a
-
 ## DBMS
 
 The DBMS directory contains notes from several colleges for studying the theory and getting started with the subject along with several past year question papers for exam preparations.
@@ -29,8 +23,4 @@ The SQL directory contains txt files that hold SQL commands for creating a datab
 - By adding more databases and basic queries.
 - By adding ER diagrams for new databases/enhancing existing ones.
 - By adding more and better notes, question papers and other help material in the DBMS directory. <br>
-  <<<<<<< HEAD
   **Try to follow the structure of content of individual files and the overall directory (don't mix different things together).**
-  =======
-  **Try to follow the structure of content of individual files and the overall directory (don't mix different things together).**
-  > > > > > > > 0a8756f16926b488b0fe01cde11c037566d2773a
