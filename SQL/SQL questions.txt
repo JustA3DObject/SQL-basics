@@ -116,3 +116,23 @@ on e.email = e2.email
 and e.id < e2.id
 
 select * from emails
+
+
+-- Identify if three side lengths make a triangle and it's type
+create table triangles (
+side_a int,
+side_b int,
+side_c int);
+
+insert into triangles values (20, 20, 23);
+insert into triangles values (20, 20, 20);
+insert into triangles values (20, 21, 22);
+insert into triangles values (13, 14, 30); 
+
+select (case
+	when t.side_a + t.side_b < t.side_c then 'Not a triangle'
+	when t.side_a = t.side_b and t.side_a = t.side_c then 'Equilateral'
+	when t.side_a = t.side_b or t.side_a = t.side_c or t.side_b = t.side_c then 'Isosceles'
+	else 'Scalene'
+end)
+from triangles t;
