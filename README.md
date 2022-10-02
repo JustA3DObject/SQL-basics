@@ -1,7 +1,7 @@
 # SQL-basics
 
 This repository contains notes and other help material for Database Management System (DBMS) along with txt files containing SQL commands to create a database like a company would have along with other queries to get started with SQL. <br>
-**The SQL written works best with MySQL.**
+**The queries works best with MySQL.**
 ## DBMS
 
 The DBMS directory contains notes from several colleges for studying the theory and getting started with the subject along with several past year question papers for exam preparations.
